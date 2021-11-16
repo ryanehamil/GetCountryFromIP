@@ -37,24 +37,24 @@ https://ip-api.com/docs/api:json
 
 | name          | description                                | example             | type   |
 | ------------- | ------------------------------------------ | ------------------- | ------ |
-| continent     | Continent name                             | North America       | string |
-| continentCode | Two-letter continent code                  | NA                  | string |
-| country       | Country name                               | United States       | string |
-| countryCode   | Two-letter country code ISO 3166-1 alpha-2 | US                  | string |
-| region        | Region/state short code (FIPS or ISO)      | CA or 10            | string |
-| regionName    | Region/state                               | California          | string |
-| city          | City                                       | Mountain View       | string |
-| district      | District (subdivision of city)             | Old Farm District   | string |
-| zip           | Zip code                                   | 94043               | string |
-| lat           | Latitude                                   | 37.4192             | float  |
-| lon           | Longitude                                  | -122.0574           | float  |
-| timezone      | Timezone (tz)                              | America/Los_Angeles | string |
-| offset        | Timezone UTC DST offset in seconds         | -25200              | int    |
-| currency      | National currency                          | USD                 | string |
-| isp           | ISP name                                   | Google              | string |
-| org           | Organization name                          | Google              | string |
-| as            | AS number and organization (RIR).          | AS15169 Google Inc. | string |
-| asname        | AS name (RIR).                             | GOOGLE              | string |
-| reverse       | Reverse DNS of the IP (can delay response) | wi-in-f94.1e100.net | string |
-| hosting       | Hosting, colocated or data center          | true                | bool   |
-| query         | IP used for the query                      | 173.194.67.94       | string |
+| Continent     | Continent name                             | North America       | string |
+| ContinentCode | Two-letter continent code                  | NA                  | string |
+| Country       | Country name                               | United States       | string |
+| CountryCode   | Two-letter country code ISO 3166-1 alpha-2 | US                  | string |
+| Region        | Region/state short code (FIPS or ISO)      | CA or 10            | string |
+| RegionName    | Region/state                               | California          | string |
+| City          | City                                       | Mountain View       | string |
+| District      | District (subdivision of city)             | Old Farm District   | string |
+| Zip           | Zip code                                   | 94043               | string |
+| Lat           | Latitude                                   | 37.4192             | float  |
+| Lon           | Longitude                                  | -122.0574           | float  |
+| Timezone      | Timezone (tz)                              | America/Los_Angeles | string |
+| Offset        | Timezone UTC DST offset in seconds         | -25200              | int    |
+| Currency      | National currency                          | USD                 | string |
+| ISP           | ISP name                                   | Google              | string |
+| Org           | Organization name                          | Google              | string |
+| AS            | AS number and organization (RIR).          | AS15169 Google Inc. | string |
+| ASName        | AS name (RIR).                             | GOOGLE              | string |
+| Reverse       | Reverse DNS of the IP (can delay response) | wi-in-f94.1e100.net | string |
+| Hosting       | Hosting, colocated or data center          | true                | bool   |
+| Query         | IP used for the query                      | 173.194.67.94       | string |
