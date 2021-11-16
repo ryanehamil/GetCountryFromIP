@@ -7,22 +7,28 @@ This is a fantastic site and I hope the continue to provide this
 
 Allows flag -p to replace the properties output
 
+## Build
+
+I build this on Windows with
+
+    go build -o bin/
+
 ## Usage
 
 > **Default (Country Name)**
-> 
+>
 > lookupip.exe -ip 8.8.8.8
-> 
+>
 > **Output:**
-> 
+>
 > United States
 
 > **Custom return (Country Name and ISP)**
-> 
+>
 > lookupip.exe -ip 8.8.8.8 -p country,isp
-> 
+>
 > **Output:**
-> 
+>
 > United States,Google LLC
 
 ## Custom Properties
