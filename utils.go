@@ -39,16 +39,15 @@ func debugOut(level Verbosity, text string) {
 	}
 }
 
-func CheckValidIP(ip string) {
+func checkValidIP(ip string) bool {
 	re := regexp.MustCompile(`^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$`)
-	if !re.MatchString(ip) {
-		debugOut(Error, "Please enter a valid IP address")
-	}
+	return re.MatchString(ip)
 }
 
 func parseFlags() {
 	_ip := flag.String("ip", "", "IP address to lookup")
-	_props := flag.String("p", "country", "Properties to retrieve")
+	_props := flag.String("p", "Country", "Properties to retrieve")
+	flag.BoolVar(&detail, "d", false, "Show Detail")
 	_verbose := flag.Bool("v", false, "Verbose output")
 	flag.Parse()
 	_loose := flag.Args()
