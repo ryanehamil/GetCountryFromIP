@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"testing"
@@ -16,7 +16,7 @@ func TestCheckValidIP(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		got := checkValidIP(test.ip)
+		got := CheckValidIP(test.ip)
 		if got != test.want {
 			t.Errorf("CheckValidIP(%q) = %v, want %v", test.ip, got, test.want)
 		}

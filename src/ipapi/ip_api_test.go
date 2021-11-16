@@ -1,4 +1,4 @@
-package main
+package ipapi
 
 import (
 	"testing"
@@ -35,7 +35,7 @@ func TestLookup(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		got, err := lookup(test.ip, []string{"country"})
+		got, err := Lookup(test.ip, []string{"country"})
 		if err != nil {
 			t.Errorf("CheckValidIP(%q) = %v, want %v", test.ip, err, test.want)
 		}

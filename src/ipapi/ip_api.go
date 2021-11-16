@@ -1,8 +1,9 @@
-package main
+package ipapi
 
 import (
 	"encoding/json"
 	"errors"
+	"lookupip/src/utils"
 	"net/http"
 	"reflect"
 )
@@ -40,10 +41,10 @@ func buildURL(ip string) string {
 	return "http://ip-api.com/json/" + ip
 }
 
-func lookup(ip string, properties []string) (*IPAPI, error) {
+func Lookup(ip string, properties []string) (*IPAPI, error) {
 	var data *IPAPI
 
-	if !checkValidIP(ip) {
+	if !utils.CheckValidIP(ip) {
 		return data, errors.New("please enter a valid IP address")
 	}
 
@@ -51,21 +52,24 @@ func lookup(ip string, properties []string) (*IPAPI, error) {
 	resp, err := http.Get(url)
 
 	if err != nil {
-		debugOut(Error, err.Error())
+		// DebugOut(Error, err.Error())
+		return data, err
 	}
 	defer resp.Body.Close()
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
 	if err != nil {
-		debugOut(Error, err.Error())
+		// DebugOut(Error, err.Error())
+		return data, err
 	}
 	if data.Status == "fail" {
-		debugOut(Error, data.Message)
+		// DebugOut(Error, data.Message)
+		return data, errors.New(data.Message)
 	}
 	return data, nil
 }
 
-func getProperties(data *IPAPI) string {
+func GetProperties(data *IPAPI, properties []string, detail bool) string {
 	var result string
 	var output string = ""
 
