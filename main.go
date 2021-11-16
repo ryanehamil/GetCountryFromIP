@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"lookupip/src/ipapi"
 	"strings"
+
+	"github.com/ryanehamil/lookupip/src/ipapi"
 )
 
 var verbose bool = false

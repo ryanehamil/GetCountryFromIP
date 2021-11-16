@@ -3,9 +3,10 @@ package ipapi
 import (
 	"encoding/json"
 	"errors"
-	"lookupip/src/utils"
 	"net/http"
 	"reflect"
+
+	"github.com/ryanehamil/lookupip/src/utils"
 )
 
 // IP-API data struct
