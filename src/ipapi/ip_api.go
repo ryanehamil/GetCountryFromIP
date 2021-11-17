@@ -45,15 +45,24 @@ func buildURL(ip string) string {
 // Get IP-API data about IP
 //
 // https://ip-api.com/docs/api:json
-func Lookup(ip string) *IPAPI {
+func Lookup(ip *string, properties *string) *IPAPI {
 	var data *IPAPI
 
-	if !utils.CheckValidIP(ip) {
-		utils.PrintOut("Invalid IP address")
-		utils.Exit(1)
-	}
+	if *ip == "" {
+		if *properties == "" {
+			*properties = "Query"
+		}
+	} else {
+		if *properties == "" {
+			*properties = "Country"
+		}
+		if !utils.CheckValidIP(*ip) {
+			utils.PrintOut("Invalid IP address during Lookup")
+			utils.Exit(1)
+		}
 
-	url := buildURL(ip)
+	}
+	url := buildURL(*ip)
 	resp, err := http.Get(url)
 	utils.HandleError(err)
 
