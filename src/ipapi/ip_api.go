@@ -2,9 +2,9 @@ package ipapi
 
 import (
 	"encoding/json"
-	"errors"
 	"net/http"
 	"reflect"
+	"strings"
 
 	"github.com/ryanehamil/lookupip/src/utils"
 )
@@ -42,37 +42,37 @@ func buildURL(ip string) string {
 	return "http://ip-api.com/json/" + ip
 }
 
-func Lookup(ip string, properties []string) (*IPAPI, error) {
+// Get IP-API data about IP
+//
+// https://ip-api.com/docs/api:json
+func Lookup(ip string) *IPAPI {
 	var data *IPAPI
 
 	if !utils.CheckValidIP(ip) {
-		return data, errors.New("please enter a valid IP address")
+		utils.PrintOut("Invalid IP address")
+		utils.Exit(1)
 	}
 
 	url := buildURL(ip)
 	resp, err := http.Get(url)
+	utils.HandleError(err)
 
-	if err != nil {
-		// DebugOut(Error, err.Error())
-		return data, err
-	}
 	defer resp.Body.Close()
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
-	if err != nil {
-		// DebugOut(Error, err.Error())
-		return data, err
-	}
+	utils.HandleError(err)
+
 	if data.Status == "fail" {
-		// DebugOut(Error, data.Message)
-		return data, errors.New(data.Message)
+		utils.PrintOut("IP-API returned an error: " + data.Message)
+		utils.Exit(1)
 	}
-	return data, nil
+	return data
 }
 
-func GetProperties(data *IPAPI, properties []string, detail bool) string {
-	var result string
-	var output string = ""
+func GetProperties(data *IPAPI, properties_string string, detail bool) string {
+	result := ""
+	output := ""
+	properties := strings.Split(properties_string, ",")
 
 	for _, property := range properties {
 		datafield := reflect.Indirect(reflect.ValueOf(data)).FieldByName(property).String()
