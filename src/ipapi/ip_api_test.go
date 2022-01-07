@@ -35,7 +35,7 @@ func TestLookup(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		got := Lookup(test.ip)
+		got := Lookup(test.ip, "")
 		if test.want != got.Country {
 			t.Errorf("CheckValidIP(%q) = %v, want %v", test.ip, got, test.want)
 		}
