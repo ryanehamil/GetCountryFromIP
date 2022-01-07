@@ -14,7 +14,7 @@ func main() {
 	utils.ParseFlags(&ip, &properties, &detail)
 
 	// Use the IP-API to lookup the IP address
-	data := ipapi.Lookup(&ip, &properties)
+	data := ipapi.Lookup(ip, properties)
 
 	// Format the data to a string
 	result := ipapi.GetProperties(data, properties, detail)

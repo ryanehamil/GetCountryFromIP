@@ -36,6 +36,11 @@ type IPAPI struct {
 	Message       string  `json:"message"`
 }
 
+// Add the .String() method to IPAPI
+func (i *IPAPI) String() string {
+	return i.Query
+}
+
 // Build URL to query IP-API
 // https://ip-api.com/docs/api:json
 func buildURL(ip string) string {
@@ -45,24 +50,24 @@ func buildURL(ip string) string {
 // Get IP-API data about IP
 //
 // https://ip-api.com/docs/api:json
-func Lookup(ip *string, properties *string) *IPAPI {
+func Lookup(ip string, properties string) *IPAPI {
 	var data *IPAPI
 
-	if *ip == "" {
-		if *properties == "" {
-			*properties = "Query"
+	if ip == "" {
+		if properties == "" {
+			properties = "Query"
 		}
 	} else {
-		if *properties == "" {
-			*properties = "Country"
+		if properties == "" {
+			properties = "Country"
 		}
-		if !utils.CheckValidIP(*ip) {
+		if !utils.CheckValidIP(ip) {
 			utils.PrintOut("Invalid IP address during Lookup")
 			utils.Exit(1)
 		}
 
 	}
-	url := buildURL(*ip)
+	url := buildURL(ip)
 	resp, err := http.Get(url)
 	utils.HandleError(err)
 
