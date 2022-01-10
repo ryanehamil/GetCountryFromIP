@@ -14,12 +14,13 @@
             "presentation": {
                 "reveal": "silent",
                 "clear": true
-            },
+            }
         },
         {
             "label": "Go Test All",
             "type": "shell",
             "command": "go test ./...",
+            "problemMatcher": []
         }
     ]
 }
