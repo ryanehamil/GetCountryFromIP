@@ -12,13 +12,13 @@ func TestCheckValidIP(t *testing.T) {
 		explain string
 	}{
 		{"127.0.0.1", true, "Valid IP"},
-		{"127.O.O.1", false, "Invalid IP"},
+		{"127.X.X.1", false, "Invalid IP"},
 	}
 
 	for _, test := range tests {
 		got := CheckValidIP(test.ip)
 		if got != test.want {
-			t.Errorf("CheckValidIP(%q) = %v, want %v", test.ip, got, test.want)
+			t.Errorf("%q. CheckValidIP(%q) = %v", test.explain, test.ip, got)
 		}
 	}
 }

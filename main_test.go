@@ -4,27 +4,31 @@ import (
 	"testing"
 
 	"github.com/ryanehamil/lookupip/src/ipapi"
-	"github.com/ryanehamil/lookupip/src/utils"
 )
 
 // TestBuildURL
 // Tests that the buildURL function returns a correct URL
-func TestBuildURL(t *testing.T) {
+func TestLookup(t *testing.T) {
 	var tests = []struct {
 		input   string
 		want    string
 		explain string
 	}{
-		{"nothing", "any ip address", "Valid Return"},
+		{"", "Any IPV4", "Lookup my own IP"},
+		{"8.8.8.8", "8.8.8.8", "Lookup Google's DNS"},
 	}
 
 	for _, test := range tests {
+		ip := test.input
+		properties := ""
 		// Use the IP-API to lookup anything
-		got := ipapi.Lookup(ip, properties).String()
-		// use regex to check if got is a valid ipv4 address
+		data, _ := ipapi.Lookup(&ip, &properties)
 
-		if !utils.CheckValidIP(got) {
-			t.Errorf("ipapi.Lookup returned %s using input %s, want %s", got, test.input, test.want)
+		got := ipapi.GetProperties(data, properties, detail)
+
+		if got != test.want {
+			t.Errorf("%q. lookup(%q) = %v, want %v", test.explain, test.input, got, test.want)
 		}
+
 	}
 }

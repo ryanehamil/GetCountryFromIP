@@ -2,6 +2,8 @@ package ipapi
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/http"
 	"reflect"
 	"strings"
@@ -43,44 +45,52 @@ func (i *IPAPI) String() string {
 
 // Build URL to query IP-API
 // https://ip-api.com/docs/api:json
-func buildURL(ip string) string {
-	return "http://ip-api.com/json/" + ip
+func buildURL(ip string) (string, error) {
+	url := "http://ip-api.com/json"
+	if ip != "" {
+		ip = strings.TrimSpace(ip)
+		if !utils.CheckValidIP(ip) {
+			var err = errors.New("invalid IP address, failed CheckValidIP")
+			return url, err
+		}
+		url += fmt.Sprintf("/%s", ip)
+	}
+	return url, nil
 }
 
 // Get IP-API data about IP
 //
 // https://ip-api.com/docs/api:json
-func Lookup(ip string, properties string) *IPAPI {
-	var data *IPAPI
+func Lookup(ip *string, properties *string) (data *IPAPI, err error) {
 
-	if ip == "" {
-		if properties == "" {
-			properties = "Query"
-		}
-	} else {
-		if properties == "" {
-			properties = "Country"
-		}
-		if !utils.CheckValidIP(ip) {
-			utils.PrintOut("Invalid IP address during Lookup")
-			utils.Exit(1)
-		}
-
+	if *ip == "" && *properties == "" {
+		*properties = "Query"
+	} else if *properties == "" {
+		*properties = "Country"
 	}
-	url := buildURL(ip)
+
+	url, error := buildURL(*ip)
+	if error != nil {
+		return data, error
+	}
+
 	resp, err := http.Get(url)
-	utils.HandleError(err)
+	if error != nil {
+		return data, error
+	}
 
 	defer resp.Body.Close()
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
-	utils.HandleError(err)
+	if error != nil {
+		return data, error
+	}
 
 	if data.Status == "fail" {
 		utils.PrintOut("IP-API returned an error: " + data.Message)
 		utils.Exit(1)
 	}
-	return data
+	return data, nil
 }
 
 func GetProperties(data *IPAPI, properties_string string, detail bool) string {
@@ -93,8 +103,9 @@ func GetProperties(data *IPAPI, properties_string string, detail bool) string {
 		if datafield != "" {
 			result = datafield
 		} else {
-			result = "Not found"
+			result = ""
 		}
+
 		if detail {
 			output += property + ": " + result + "\n"
 		} else {
