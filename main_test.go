@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/ryanehamil/lookupip/src/ipapi"
+	"github.com/ryanehamil/lookupip/src/utils"
 )
 
 // TestBuildURL
@@ -26,7 +27,11 @@ func TestLookup(t *testing.T) {
 
 		got := ipapi.GetProperties(data, properties, detail)
 
-		if got != test.want {
+		if test.want == "Any IPV4" {
+			if !utils.CheckValidIP(data.Query) {
+				t.Errorf("%q. error-buildURL(%q) = %v, want %v", test.explain, test.input, got, test.want)
+			}
+		} else if got != test.want {
 			t.Errorf("%q. lookup(%q) = %v, want %v", test.explain, test.input, got, test.want)
 		}
 
