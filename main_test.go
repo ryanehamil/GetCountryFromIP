@@ -16,7 +16,7 @@ func TestLookup(t *testing.T) {
 		explain string
 	}{
 		{"", "Any IPV4", "Lookup my own IP"},
-		{"8.8.8.8", "8.8.8.8", "Lookup Google's DNS"},
+		{"8.8.8.8", "United States", "Lookup Google's DNS"},
 	}
 
 	for _, test := range tests {
