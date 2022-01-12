@@ -21,11 +21,10 @@ func TestLookup(t *testing.T) {
 
 	for _, test := range tests {
 		ip := test.input
-		properties := ""
 		// Use the IP-API to lookup anything
-		data, _ := ipapi.Lookup(&ip, &properties)
+		data, _ := ipapi.Lookup(ip)
 
-		got := ipapi.GetProperties(data, properties, detail)
+		got := ipapi.GetProperties(data, "", false)
 
 		if test.want == "Any IPV4" {
 			if !utils.CheckValidIP(data.Query) {

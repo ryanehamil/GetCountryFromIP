@@ -61,15 +61,9 @@ func buildURL(ip string) (string, error) {
 // Get IP-API data about IP
 //
 // https://ip-api.com/docs/api:json
-func Lookup(ip *string, properties *string) (data *IPAPI, err error) {
+func Lookup(ip string) (data IPAPI, err error) {
 
-	if *ip == "" && *properties == "" {
-		*properties = "Query"
-	} else if *properties == "" {
-		*properties = "Country"
-	}
-
-	url, error := buildURL(*ip)
+	url, error := buildURL(ip)
 	if error != nil {
 		return data, error
 	}
@@ -93,9 +87,11 @@ func Lookup(ip *string, properties *string) (data *IPAPI, err error) {
 	return data, nil
 }
 
-func GetProperties(data *IPAPI, properties_string string, detail bool) string {
+func GetProperties(data IPAPI, properties_string string, detail bool) (output string) {
+	if properties_string == "" {
+		properties_string = "Country"
+	}
 	result := ""
-	output := ""
 	properties := strings.Split(properties_string, ",")
 
 	for _, property := range properties {

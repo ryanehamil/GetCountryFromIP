@@ -1,21 +1,10 @@
 package utils
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"regexp"
 )
-
-// Parse command line flags using go's flag package
-//
-// https://golang.org/pkg/flag/
-func ParseFlags(ip *string, properties *string, detail *bool) {
-	flag.StringVar(ip, "ip", "", "IP address to lookup")
-	flag.StringVar(properties, "p", "", "Properties to retrieve")
-	flag.BoolVar(detail, "d", false, "Show Detail")
-	flag.Parse()
-}
 
 // For printing to the console
 //

@@ -47,8 +47,7 @@ func TestLookup(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		properties := ""
-		data, err := Lookup(&test.ip, &properties)
+		data, err := Lookup(test.ip)
 		got := data.Country
 		if err != nil && err.Error() != test.want {
 			t.Errorf("%q. error-buildURL(%q) = %v, want %v", test.explain, test.ip, got, test.want)
@@ -78,7 +77,7 @@ func TestGetProperties(t *testing.T) {
 		// This test relies on the lookup function
 		ip := "8.8.8.8"
 		// Use the IP-API to lookup anything
-		data, _ := Lookup(&ip, &test.properties)
+		data, _ := Lookup(ip)
 
 		got := GetProperties(data, test.properties, false)
 		if got != test.want {
