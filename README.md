@@ -1,11 +1,11 @@
 # lookupip
 
-Simple go executable to task an ip and get the results from ip-api
+Simple Go executable to query an IP and get the results from ip-api:
 https://ip-api.com/
 
-This is a fantastic site and I hope the continue to provide this
+This is a fantastic site, and I hope they continue to provide this service.
 
-Allows flag -p to replace the properties output
+Allows flag -p to replace the properties output.
 
 ## Build
 
