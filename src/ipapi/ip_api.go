@@ -63,21 +63,21 @@ func buildURL(ip string) (string, error) {
 // https://ip-api.com/docs/api:json
 func Lookup(ip string) (data IPAPI, err error) {
 
-	url, error := buildURL(ip)
-	if error != nil {
-		return data, error
+	url, err := buildURL(ip)
+	if err != nil {
+		return data, err
 	}
 
 	resp, err := http.Get(url)
-	if error != nil {
-		return data, error
+	if err != nil {
+		return data, err
 	}
 
 	defer resp.Body.Close()
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
-	if error != nil {
-		return data, error
+	if err != nil {
+		return data, err
 	}
 
 	if data.Status == "fail" {
